@@ -113,8 +113,7 @@ func Test_createCA(t *testing.T) {
 	for _, tt := range tests {
 		opts = tt.opts
 		t.Run(tt.name, func(t *testing.T) {
-			stopCh := make(chan struct{})
-			got := createCA(tt.args.client, stopCh)
+			got := createCA(tt.args.client)
 			gotCert, _, _, _ := got.GetCAKeyCertBundle().GetAllPem()
 			if !reflect.DeepEqual(gotCert, tt.wantCert) && !tt.opts.selfSignedCA {
 				t.Errorf("cert PEM got = %v, want %v", string(gotCert), string(tt.wantCert))
